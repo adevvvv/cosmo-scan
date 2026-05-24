@@ -8,8 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -22,19 +22,32 @@ public class WorkController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Mono<ResponseEntity<WorkSubmissionResponse>> submitWork(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("studentName") String studentName) {
+            @RequestPart("file") FilePart filePart,
+            @RequestPart("studentName") String studentName) {
 
-        log.info("Received work submission: {} from student: {}",
-                file.getOriginalFilename(), studentName);
+        log.info("Received: {} from {}", filePart.filename(), studentName);
 
-        return orchestrationService.submitWork(file, studentName)
-                .map(response -> ResponseEntity.status(HttpStatus.CREATED).body(response));
+        return filePart.content()
+                .collectList()
+                .flatMap(buffers -> {
+                    int size = buffers.stream()
+                            .mapToInt(b -> b.readableByteCount())
+                            .sum();
+                    byte[] bytes = new byte[size];
+                    int pos = 0;
+                    for (var buf : buffers) {
+                        int len = buf.readableByteCount();
+                        buf.read(bytes, pos, len);
+                        pos += len;
+                    }
+                    return orchestrationService.submitWork(
+                            bytes, filePart.filename(), studentName);
+                })
+                .map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp));
     }
 
     @GetMapping("/{workId}/report")
     public Mono<ResponseEntity<AnalysisResponse>> getWorkReport(@PathVariable String workId) {
-        log.info("Fetching report for work: {}", workId);
         return orchestrationService.getWorkReport(workId)
                 .map(ResponseEntity::ok);
     }
