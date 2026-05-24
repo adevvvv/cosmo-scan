@@ -1,0 +1,44 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: file-service
+          uri: ${FILE_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/v1/files/**
+        - id: analysis-service
+          uri: ${ANALYSIS_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/v1/analysis/**
+
+app:
+  file-service:
+    url: ${FILE_SERVICE_URL:http://localhost:8081}
+  analysis-service:
+    url: ${ANALYSIS_SERVICE_URL:http://localhost:8082}
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      fileService:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+      analysisService:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: gateway
+        url: /v3/api-docs
+      - name: file-service
+        url: http://localhost:8081/v3/api-docs
+      - name: analysis-service
+        url: http://localhost:8082/v3/api-docs
