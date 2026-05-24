@@ -28,19 +28,19 @@
 
 ### Диаграмма последовательности
 
-![diagram (30).svg](..%2FDownloads%2Fdiagram%20%2830%29.svg)
+![Диаграмма последовательности](https://github.com/adevvvv/cosmo-scan/blob/main/diagram%20(30).svg)
 
 ### Диаграмма компонентов
 
-![diagram (31).svg](..%2FDownloads%2Fdiagram%20%2831%29.svg)
+![Диаграмма компонентов](https://github.com/adevvvv/cosmo-scan/blob/main/diagram%20(31).svg)
 
 ### Диаграмма развертывания
 
-![diagram (34).svg](..%2FDownloads%2Fdiagram%20%2834%29.svg)
+![Диаграмма развертывания](https://github.com/adevvvv/cosmo-scan/blob/main/diagram%20(34).svg)
 
 ### ERD
 
-![diagram (39).svg](..%2FDownloads%2Fdiagram%20%2839%29.svg)
+![ERD](https://github.com/adevvvv/cosmo-scan/blob/main/diagram%20(39).svg)
 
 ## API Endpoints
 
