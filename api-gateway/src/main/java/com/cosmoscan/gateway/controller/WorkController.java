@@ -2,7 +2,7 @@ package com.cosmoscan.gateway.controller;
 
 import com.cosmoscan.common.dto.AnalysisResponse;
 import com.cosmoscan.common.dto.WorkSubmissionResponse;
-import com.cosmoscan.gateway.service.WorkOrchestrationService;
+import com.cosmoscan.gateway.WorkOrchestrationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

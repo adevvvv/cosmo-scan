@@ -1,4 +1,4 @@
-package com.cosmoscan.gateway.service;
+package com.cosmoscan.gateway;
 
 import com.cosmoscan.common.dto.AnalysisRequest;
 import com.cosmoscan.common.dto.AnalysisResponse;

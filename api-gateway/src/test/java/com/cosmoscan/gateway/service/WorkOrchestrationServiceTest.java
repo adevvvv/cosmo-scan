@@ -4,6 +4,7 @@ import com.cosmoscan.common.dto.AnalysisRequest;
 import com.cosmoscan.common.dto.AnalysisResponse;
 import com.cosmoscan.common.dto.FileUploadResponse;
 import com.cosmoscan.common.dto.WorkSubmissionResponse;
+import com.cosmoscan.gateway.WorkOrchestrationService;
 import com.cosmoscan.gateway.client.AnalysisServiceClient;
 import com.cosmoscan.gateway.client.FileServiceClient;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
